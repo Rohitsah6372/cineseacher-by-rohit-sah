@@ -20,8 +20,8 @@ const MovieDetails = () => {
     <Modal
       closeOnEsc
       closeOnOutsideClick
-      isOpen
       className="flex  flex-col p-4"
+      isOpen={false}
       size="large"
       onClose={() => {
         // setIsOpen(false);
