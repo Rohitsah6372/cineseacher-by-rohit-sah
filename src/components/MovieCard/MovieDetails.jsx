@@ -8,7 +8,7 @@ import useMoviesStore from "stores/useMovieStore";
 
 import Image from "./Image";
 
-const MovieDetails = ({ id, setIsOpen }) => {
+const MovieDetails = ({ id, setIsModalOpen }) => {
   const { data: movieDetails, isLoading, isError } = useClickedMovie(id);
   const { toggleInMovie } = useMoviesStore();
 
@@ -16,7 +16,7 @@ const MovieDetails = ({ id, setIsOpen }) => {
     if (movieDetails) {
       toggleInMovie(movieDetails);
     }
-  }, [movieDetails]);
+  }, [movieDetails, toggleInMovie]);
 
   if (isLoading) {
     return <PageLoader />;
@@ -32,7 +32,7 @@ const MovieDetails = ({ id, setIsOpen }) => {
     poster,
     plot,
     director,
-    actor,
+    actors,
     boxOffice,
     year,
     runtime,
@@ -48,7 +48,7 @@ const MovieDetails = ({ id, setIsOpen }) => {
       className="flex  flex-col p-4"
       size="large"
       onClose={() => {
-        setIsOpen(false);
+        setIsModalOpen(false);
       }}
     >
       <div className="mb-4">
@@ -80,7 +80,7 @@ const MovieDetails = ({ id, setIsOpen }) => {
           </Typography>
           <Typography>
             <span className="font-bold text-black">Actor: </span>
-            {actor}
+            {actors}
           </Typography>
           <Typography>
             <span className="font-bold text-black">Box Office: </span>

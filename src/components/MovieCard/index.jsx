@@ -6,14 +6,12 @@ import Image from "./Image";
 import MovieDetails from "./MovieDetails";
 
 const MovieCard = ({ movie }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { imdbId, title, year, poster } = movie;
 
-  // console.log("Movie from MovieCard : ", movie, imdbId);
-
-  const [isOpen, setIsOpen] = useState(false);
-
   const handleClick = () => {
-    setIsOpen(true);
+    setIsModalOpen(true);
   };
 
   return (
@@ -36,7 +34,9 @@ const MovieCard = ({ movie }) => {
           style="tertiary"
         />
       </div>
-      {isOpen && <MovieDetails id={imdbId} setIsOpen={setIsOpen} />}
+      {isModalOpen && (
+        <MovieDetails id={imdbId} setIsModalOpen={setIsModalOpen} />
+      )}
     </div>
   );
 };
