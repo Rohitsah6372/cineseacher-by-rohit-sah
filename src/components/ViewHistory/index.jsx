@@ -7,7 +7,7 @@ import ViewHistoryItem from "./ViewHistoryItem";
 
 const ViewHistory = () => {
   const { moviesStore, selectedMovieId } = useMoviesStore();
-  console.log("view History ", moviesStore);
+  // console.log("view History ", moviesStore);
 
   const containerRef = useRef({});
 

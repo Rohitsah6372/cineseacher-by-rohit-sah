@@ -17,21 +17,21 @@ import ErrorMessage from "src/commons/ErrorMessage";
 import { buildUrl } from "utils/url";
 
 const MovieList = () => {
-  const [searchKey, setSearchKey] = useState("");
-  const debouncedSearchKey = useDebounce(searchKey);
-  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_INDEX);
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchKey = useDebounce(searchTerm);
+  const [currentPageNumber, setCurrentPageNumber] =
+    useState(DEFAULT_PAGE_INDEX);
 
   const { page = DEFAULT_PAGE_INDEX } = useQueryParams();
 
-  const history = useHistory();
+  const routerHistory = useHistory();
+  const autoInputRef = useRef(null);
 
   useEffect(() => {
     if (page) {
-      setCurrentPage(Number(page));
+      setCurrentPageNumber(Number(page));
     }
   }, [page]);
-
-  const autoInputRef = useRef(null);
 
   useEffect(() => {
     const handleKeyDown = event => {
@@ -49,25 +49,19 @@ const MovieList = () => {
   }, []);
 
   const {
-    data: { search: movies = [], totalResults } = {},
+    data: { search: movieList = [], totalMovieCount } = {},
     isLoading,
     isError,
-  } = useSearchedMovie(debouncedSearchKey, currentPage);
-
-  console.log("Movies from MovieList Page : ", movies);
+  } = useSearchedMovie(debouncedSearchKey, currentPageNumber);
 
   const handlePageNavigation = page =>
-    history.replace(
+    routerHistory.replace(
       buildUrl(routes.root, { page, pageSize: DEFAULT_PAGE_SIZE })
     );
 
-  if (isLoading) {
-    return <PageLoader />;
-  }
+  if (isLoading) return <PageLoader />;
 
-  if (isError) {
-    return <ErrorMessage />;
-  }
+  if (isError) return <ErrorMessage />;
 
   return (
     <div className="bg-[#f5f5f5]">
@@ -80,23 +74,23 @@ const MovieList = () => {
               prefix={<Search />}
               ref={autoInputRef}
               type="Search"
-              value={searchKey}
+              value={searchTerm}
               onChange={e => {
-                setSearchKey(e.target.value);
-                setCurrentPage(DEFAULT_PAGE_INDEX);
+                setSearchTerm(e.target.value);
+                setCurrentPageNumber(DEFAULT_PAGE_INDEX);
               }}
             />
           }
         />
       </div>
       <div>
-        {isEmpty(movies) ? (
+        {isEmpty(movieList) ? (
           <div className="flex h-full w-full items-center justify-center">
             <NoDataToShow />
           </div>
         ) : (
           <div className="grid grid-cols-1 justify-items-center gap-x-4 gap-y-10 p-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {movies.map(movie => (
+            {movieList.map(movie => (
               <MovieCard key={movie["imdbId"]} movie={movie} />
             ))}
           </div>
@@ -104,11 +98,12 @@ const MovieList = () => {
       </div>
       <div className="mb-5 self-end">
         <Pagination
-          count={totalResults ? Math.ceil(totalResults / DEFAULT_PAGE_SIZE) : 0} // <-- Fix this line
-          // navigate={page => setCurrentPage(page)}
           navigate={page => handlePageNavigation(page)}
-          pageNo={currentPage || DEFAULT_PAGE_INDEX}
+          pageNo={currentPageNumber || DEFAULT_PAGE_INDEX}
           pageSize={DEFAULT_PAGE_SIZE}
+          count={
+            totalMovieCount ? Math.ceil(totalMovieCount / DEFAULT_PAGE_SIZE) : 0
+          }
         />
       </div>
     </div>
