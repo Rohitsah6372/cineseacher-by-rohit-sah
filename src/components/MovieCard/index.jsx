@@ -10,10 +10,7 @@ const MovieCard = ({ movie }) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log("saving in Cache");
-
   const handleClick = () => {
-    console.log("true");
     setIsOpen(true);
   };
 

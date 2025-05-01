@@ -44,8 +44,8 @@ const MovieDetails = ({ imdbID, setIsOpen }) => {
     <Modal
       closeOnEsc
       closeOnOutsideClick
+      isOpen
       className="flex  flex-col p-4"
-      isOpen={false}
       size="large"
       onClose={() => {
         setIsOpen(false);
@@ -72,7 +72,7 @@ const MovieDetails = ({ imdbID, setIsOpen }) => {
         <div className="col-span-1 rounded-2xl p-4">
           <Image {...{ title, poster }} />
         </div>
-        <div className="col-span-2 pl-8 pt-8 text-gray-700">
+        <div className="col-span-2 pl-8 pt-4 text-gray-700">
           <Typography>{plot}</Typography>
           <Typography>
             <span className="font-bold text-black">Director: </span>

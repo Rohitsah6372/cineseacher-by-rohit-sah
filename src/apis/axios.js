@@ -13,20 +13,13 @@ const responseInterceptors = () => {
       });
     }
 
-    console.log("Tot results : ", response.data);
     if (response.data.Search) {
-      console.log("Response.data.Search");
       response.data.search = response.data.Search.map(item => item);
-      // delete response.data.Search;
 
       return response.data;
     } else if (response.data) {
-      console.log("Response.data");
-
       return response.data;
     } else if (response) {
-      console.log("Response");
-
       return response;
     }
 

@@ -10,14 +10,9 @@ const ViewHistory = () => {
 
   const containerRef = useRef({});
 
-  console.log("From View History : ", moviesStore);
-
   const itemRefs = useRef({});
-  console.log("Item Refs : ", itemRefs.current);
 
   useEffect(() => {
-    console.log("Effect triggered for:", selectedMovieId);
-    console.log("Ref exists:", !!itemRefs.current[selectedMovieId]);
     if (selectedMovieId && itemRefs.current[selectedMovieId]) {
       itemRefs.current[selectedMovieId].scrollIntoView({
         behavior: "smooth",

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
+import NoDataToShow from "components/commons/NoDataToShow";
 import PageLoader from "components/commons/PageLoader";
 import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "components/contants";
 import MovieCard from "components/MovieCard";
@@ -8,7 +9,7 @@ import useDebounce from "hooks/useDebounce";
 import { useSearchedMovie } from "hooks/useQuery/useMovieApi";
 import useQueryParams from "hooks/useQueryParams";
 import { Search } from "neetoicons";
-import { Input, NoData, Pagination } from "neetoui";
+import { Input, Pagination } from "neetoui";
 import { isEmpty } from "ramda";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import routes from "routes";
@@ -47,24 +48,15 @@ const MovieList = () => {
   }, []);
 
   const {
-    data: {
-      search: movies = [],
-      totalResults,
-      // Response: response,
-      // Error: error,
-    } = {},
+    data: { search: movies = [], totalResults } = {},
     isLoading,
     isError,
   } = useSearchedMovie(debouncedSearchKey, currentPage);
-
-  // console.log(response, error);
 
   const handlePageNavigation = page =>
     history.replace(
       buildUrl(routes.root, { page, pageSize: DEFAULT_PAGE_SIZE })
     );
-
-  console.log("Movies : ", movies);
 
   if (isLoading) {
     return <PageLoader />;
@@ -96,7 +88,7 @@ const MovieList = () => {
       </div>
       <div className="grid grid-cols-1 justify-items-center gap-x-4 gap-y-10 p-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {isEmpty(movies) ? (
-          <NoData className="h-full w-full" title="No movies to show" />
+          <NoDataToShow />
         ) : (
           movies.map(movie => <MovieCard key={movie["imdbID"]} movie={movie} />)
         )}
