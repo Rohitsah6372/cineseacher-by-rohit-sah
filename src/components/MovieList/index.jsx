@@ -54,6 +54,8 @@ const MovieList = () => {
     isError,
   } = useSearchedMovie(debouncedSearchKey, currentPage);
 
+  console.log("Movies from MovieList Page : ", movies);
+
   const handlePageNavigation = page =>
     history.replace(
       buildUrl(routes.root, { page, pageSize: DEFAULT_PAGE_SIZE })
@@ -95,7 +97,7 @@ const MovieList = () => {
         ) : (
           <div className="grid grid-cols-1 justify-items-center gap-x-4 gap-y-10 p-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {movies.map(movie => (
-              <MovieCard key={movie["imdbID"]} movie={movie} />
+              <MovieCard key={movie["imdbId"]} movie={movie} />
             ))}
           </div>
         )}

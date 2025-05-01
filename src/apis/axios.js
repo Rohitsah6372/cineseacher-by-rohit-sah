@@ -1,30 +1,37 @@
 import axios from "axios";
 import { Toastr } from "neetoui";
+import { keysToCamelCase } from "utils/objectFormatter";
 
 const apikey = process.env.REACT_APP_OMDB_API_KEY;
 
 const responseInterceptors = () => {
-  axios.interceptors.response.use(response => {
-    const { Response: responseData, Error: error } = response.data;
+  axios.interceptors.response.use(
+    response => {
+      const { data } = response;
 
-    if (responseData === "False") {
-      Toastr.error(`${error}`, {
+      if (data.Search) {
+        return {
+          ...data,
+          search: data.Search.map(item => keysToCamelCase(item)),
+        };
+      }
+
+      if (data.Response === "False") {
+        Toastr.error(data.Error || "Something went wrong", {
+          autoClose: 2000,
+        });
+      }
+
+      return keysToCamelCase(data);
+    },
+    error => {
+      Toastr.error("An unexpected error occurred", {
         autoClose: 2000,
       });
+
+      return Promise.reject(error);
     }
-
-    if (response.data.Search) {
-      response.data.search = response.data.Search.map(item => item);
-
-      return response.data;
-    } else if (response.data) {
-      return response.data;
-    } else if (response) {
-      return response;
-    }
-
-    return null;
-  });
+  );
 };
 
 const setHttpHeaders = () => {

@@ -9,12 +9,12 @@ const useMoviesStore = create(
       toggleInMovie: movie =>
         set(({ moviesStore }) => {
           const found = moviesStore.some(
-            movieDetail => movieDetail.imdbID === movie.imdbID
+            movieDetail => movieDetail.imdbId === movie.imdbId
           );
 
           return {
             moviesStore: found ? moviesStore : [movie, ...moviesStore],
-            selectedMovieId: movie.imdbID,
+            selectedMovieId: movie.imdbId,
           };
         }),
       // clearSelectedMovieId: () => set({ selectedMovieId: null }),

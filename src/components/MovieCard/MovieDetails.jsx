@@ -8,8 +8,8 @@ import useMoviesStore from "stores/useMovieStore";
 
 import Image from "./Image";
 
-const MovieDetails = ({ imdbID, setIsOpen }) => {
-  const { data: movieDetails, isLoading, isError } = useClickedMovie(imdbID);
+const MovieDetails = ({ id, setIsOpen }) => {
+  const { data: movieDetails, isLoading, isError } = useClickedMovie(id);
   const { toggleInMovie } = useMoviesStore();
 
   useEffect(() => {
@@ -27,17 +27,17 @@ const MovieDetails = ({ imdbID, setIsOpen }) => {
   }
 
   const {
-    Title: title,
-    Genre: genres,
-    Poster: poster,
-    Plot: plot,
-    Director: director,
-    Actors: actor,
-    BoxOffice: boxOffice,
-    Year: year,
-    Runtime: runtime,
-    Language: language,
-    Rated: rated,
+    title,
+    genre: genres,
+    poster,
+    plot,
+    director,
+    actor,
+    boxOffice,
+    year,
+    runtime,
+    language,
+    rated,
   } = movieDetails;
 
   return (

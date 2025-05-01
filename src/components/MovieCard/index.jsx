@@ -6,7 +6,9 @@ import Image from "./Image";
 import MovieDetails from "./MovieDetails";
 
 const MovieCard = ({ movie }) => {
-  const { imdbID, Title: title, Year, Poster: poster } = movie;
+  const { imdbId, title, year, poster } = movie;
+
+  // console.log("Movie from MovieCard : ", movie, imdbId);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,14 +29,14 @@ const MovieCard = ({ movie }) => {
         <Typography className="inline-block text-center font-bold">
           {title}
         </Typography>
-        <Typography className="text-gray-500">Movie - {Year}</Typography>
+        <Typography className="text-gray-500">Movie - {year}</Typography>
         <Button
           className="m-1 self-start text-center text-blue-700 shadow-sm"
           label="View details"
           style="tertiary"
         />
       </div>
-      {isOpen && <MovieDetails imdbID={imdbID} setIsOpen={setIsOpen} />}
+      {isOpen && <MovieDetails id={imdbId} setIsOpen={setIsOpen} />}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import ViewHistoryItem from "./ViewHistoryItem";
 
 const ViewHistory = () => {
   const { moviesStore, selectedMovieId } = useMoviesStore();
+  console.log("view History ", moviesStore);
 
   const containerRef = useRef({});
 
@@ -23,20 +24,20 @@ const ViewHistory = () => {
   }, [selectedMovieId]);
 
   return (
-    <div className=" overflow-y-auto" ref={containerRef}>
+    <div className="max-h-[400px] overflow-y-auto" ref={containerRef}>
       <Typography className="p-4 text-center font-bold">
         View history
       </Typography>
       {moviesStore.length > 0 &&
         moviesStore
           .filter(Boolean)
-          .map(({ Title, imdbID }) => (
+          .map(({ title, imdbId }) => (
             <ViewHistoryItem
-              id={imdbID}
-              key={imdbID}
-              ref={el => (itemRefs.current[imdbID] = el)}
+              id={imdbId}
+              key={imdbId}
+              ref={el => (itemRefs.current[imdbId] = el)}
               selectedMovieId={selectedMovieId}
-              title={Title}
+              title={title}
             />
           ))}
     </div>
