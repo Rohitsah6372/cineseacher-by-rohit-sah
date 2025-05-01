@@ -1,16 +1,34 @@
-import { movies } from "components/constants";
+import { useEffect, useRef } from "react";
+
 import { Typography } from "neetoui";
+import useMoviesStore from "stores/useMovieStore";
 
 import ViewHistoryItem from "./ViewHistoryItem";
 
 const ViewHistory = () => {
-  const moviesStore = movies;
+  const { moviesStore, selectedMovieId } = useMoviesStore();
+
+  const containerRef = useRef({});
+
+  console.log("From View History : ", moviesStore);
+
+  const itemRefs = useRef({});
+  console.log("Item Refs : ", itemRefs.current);
+
+  useEffect(() => {
+    console.log("Effect triggered for:", selectedMovieId);
+    console.log("Ref exists:", !!itemRefs.current[selectedMovieId]);
+    if (selectedMovieId && itemRefs.current[selectedMovieId]) {
+      itemRefs.current[selectedMovieId].scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      // clearSelectedMovieId();
+    }
+  }, [selectedMovieId]);
 
   return (
-    <div
-      className=" overflow-y-auto"
-      // ref={containerRef}
-    >
+    <div className=" overflow-y-auto" ref={containerRef}>
       <Typography className="p-4 text-center font-bold">
         View history
       </Typography>
@@ -18,7 +36,13 @@ const ViewHistory = () => {
         moviesStore
           .filter(Boolean)
           .map(({ Title, imdbID }) => (
-            <ViewHistoryItem key={imdbID} title={Title} />
+            <ViewHistoryItem
+              id={imdbID}
+              key={imdbID}
+              ref={el => (itemRefs.current[imdbID] = el)}
+              selectedMovieId={selectedMovieId}
+              title={Title}
+            />
           ))}
     </div>
   );

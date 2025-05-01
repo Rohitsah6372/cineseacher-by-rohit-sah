@@ -1,7 +1,31 @@
-import { movieDetails } from "components/constants";
-import { Modal, Typography } from "neetoui";
+import { useEffect } from "react";
 
-const MovieDetails = () => {
+import PageLoader from "components/commons/PageLoader";
+import { useClickedMovie } from "hooks/useQuery/useMovieApi";
+import { Modal, Typography } from "neetoui";
+import useMoviesStore from "stores/useMovieStore";
+
+import Image from "./Image";
+
+const MovieDetails = ({ imdbID, setIsOpen }) => {
+  const { data: movieDetails, isLoading, isError } = useClickedMovie(imdbID);
+  const { toggleInMovie } = useMoviesStore();
+
+  useEffect(() => {
+    if (movieDetails) {
+      console.log("MovieDetail Api is called : ");
+      toggleInMovie(movieDetails);
+    }
+  }, [movieDetails]);
+
+  if (isLoading) {
+    return <PageLoader />;
+  }
+
+  if (isError) {
+    return <h1>Error...</h1>;
+  }
+
   const {
     Title: title,
     Genre: genres,
@@ -24,7 +48,7 @@ const MovieDetails = () => {
       isOpen={false}
       size="large"
       onClose={() => {
-        // setIsOpen(false);
+        setIsOpen(false);
       }}
     >
       <div className="mb-4">
@@ -46,7 +70,7 @@ const MovieDetails = () => {
       </div>
       <div className="grid grid-cols-3">
         <div className="col-span-1 rounded-2xl p-4">
-          <img alt={title} className="rounded-xl" src={poster} />
+          <Image {...{ title, poster }} />
         </div>
         <div className="col-span-2 pl-8 pt-8 text-gray-700">
           <Typography>{plot}</Typography>
