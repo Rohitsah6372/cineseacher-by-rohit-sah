@@ -7,7 +7,9 @@ const ViewHistoryItem = React.forwardRef(({ title }, ref) => (
     className="m-2 rounded-lg bg-blue-200 p-1 text-center shadow-md"
     ref={ref}
   >
-    <Typography className="text-md font-serif">{title}</Typography>
+    <Typography className="text-md truncate py-1 font-serif">
+      {title}
+    </Typography>
   </div>
 ));
 

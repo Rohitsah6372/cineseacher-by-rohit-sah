@@ -6,7 +6,7 @@ const useDebounce = value => {
   useEffect(() => {
     const timerId = setTimeout(() => {
       setDebouncedValue(value);
-    }, 350);
+    }, 600);
 
     return () => {
       clearTimeout(timerId);

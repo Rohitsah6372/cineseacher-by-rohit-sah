@@ -13,6 +13,7 @@ import { Input, Pagination } from "neetoui";
 import { isEmpty } from "ramda";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import routes from "routes";
+import ErrorMessage from "src/commons/ErrorMessage";
 import { buildUrl } from "utils/url";
 
 const MovieList = () => {
@@ -63,7 +64,7 @@ const MovieList = () => {
   }
 
   if (isError) {
-    return <h1>Error...</h1>;
+    return <ErrorMessage />;
   }
 
   return (
@@ -86,11 +87,17 @@ const MovieList = () => {
           }
         />
       </div>
-      <div className="grid grid-cols-1 justify-items-center gap-x-4 gap-y-10 p-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div>
         {isEmpty(movies) ? (
-          <NoDataToShow />
+          <div className="flex h-full w-full items-center justify-center">
+            <NoDataToShow />
+          </div>
         ) : (
-          movies.map(movie => <MovieCard key={movie["imdbID"]} movie={movie} />)
+          <div className="grid grid-cols-1 justify-items-center gap-x-4 gap-y-10 p-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {movies.map(movie => (
+              <MovieCard key={movie["imdbID"]} movie={movie} />
+            ))}
+          </div>
         )}
       </div>
       <div className="mb-5 self-end">

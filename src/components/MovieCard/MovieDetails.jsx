@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import PageLoader from "components/commons/PageLoader";
 import { useClickedMovie } from "hooks/useQuery/useMovieApi";
 import { Modal, Typography } from "neetoui";
+import ErrorMessage from "src/commons/ErrorMessage";
 import useMoviesStore from "stores/useMovieStore";
 
 import Image from "./Image";
@@ -13,7 +14,6 @@ const MovieDetails = ({ imdbID, setIsOpen }) => {
 
   useEffect(() => {
     if (movieDetails) {
-      console.log("MovieDetail Api is called : ");
       toggleInMovie(movieDetails);
     }
   }, [movieDetails]);
@@ -23,7 +23,7 @@ const MovieDetails = ({ imdbID, setIsOpen }) => {
   }
 
   if (isError) {
-    return <h1>Error...</h1>;
+    return <ErrorMessage />;
   }
 
   const {
@@ -75,7 +75,7 @@ const MovieDetails = ({ imdbID, setIsOpen }) => {
         <div className="col-span-2 pl-8 pt-4 text-gray-700">
           <Typography>{plot}</Typography>
           <Typography>
-            <span className="font-bold text-black">Director: </span>
+            <span className="font-bold text-black  ">Director: </span>
             {director}
           </Typography>
           <Typography>
