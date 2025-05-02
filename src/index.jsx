@@ -7,6 +7,8 @@ import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { ToastContainer } from "react-toastify";
 import queryClient from "utils/queryClient";
 
+import "./common/i18n";
+// eslint-disable-next-line import/order
 import App from "./App";
 import "./index.css";
 
