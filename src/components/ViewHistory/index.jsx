@@ -9,13 +9,12 @@ const ViewHistory = () => {
   const { moviesStore, selectedMovieId } = useMoviesStore();
   // console.log("view History ", moviesStore);
 
-  const containerRef = useRef({});
+  const movieItemRefs = useRef({});
 
-  const itemRefs = useRef({});
-
+  // Scrolling effect
   useEffect(() => {
-    if (selectedMovieId && itemRefs.current[selectedMovieId]) {
-      itemRefs.current[selectedMovieId].scrollIntoView({
+    if (selectedMovieId && movieItemRefs.current[selectedMovieId]) {
+      movieItemRefs.current[selectedMovieId].scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
@@ -24,7 +23,7 @@ const ViewHistory = () => {
   }, [selectedMovieId]);
 
   return (
-    <div className="max-h-[400px] overflow-y-auto" ref={containerRef}>
+    <div className="max-h-[400px] overflow-y-auto">
       <Typography className="p-4 text-center font-bold">
         View history
       </Typography>
@@ -35,7 +34,7 @@ const ViewHistory = () => {
             <ViewHistoryItem
               id={imdbId}
               key={imdbId}
-              ref={el => (itemRefs.current[imdbId] = el)}
+              ref={el => (movieItemRefs.current[imdbId] = el)}
               selectedMovieId={selectedMovieId}
               title={title}
             />

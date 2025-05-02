@@ -5,16 +5,12 @@ import { Typography } from "neetoui";
 const ViewHistoryItem = React.forwardRef(
   ({ id, selectedMovieId, title }, ref) => (
     <div
-      className="m-2 rounded-lg bg-blue-200  text-center shadow-md"
       ref={ref}
+      className={`m-2 rounded-lg text-center shadow-md ${
+        id === selectedMovieId ? "bg-blue-700 text-white" : "bg-blue-200"
+      }`}
     >
-      <Typography
-        className={`p-2 ${
-          id === selectedMovieId ? "rounded-lg bg-blue-700 p-2 text-white" : ""
-        }`}
-      >
-        {title}
-      </Typography>
+      <Typography className="truncate p-2 font-medium">{title}</Typography>
     </div>
   )
 );
