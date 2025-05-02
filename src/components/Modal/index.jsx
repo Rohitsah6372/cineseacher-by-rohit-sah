@@ -2,14 +2,14 @@ import { useEffect } from "react";
 
 import ErrorMessage from "components/commons/ErrorMessage";
 import PageLoader from "components/commons/PageLoader";
-import { useClickedMovie } from "hooks/useQuery/useMovieApi";
+import { useShowMovie } from "hooks/useQuery/useMovieApi";
 import { Modal } from "neetoui";
 import useMoviesStore from "stores/useMovieStore";
 
 import MovieDetails from "./MovieDetails";
 
 const MovieModal = ({ id, setIsModalOpen }) => {
-  const { data: movieDetails, isLoading, isError } = useClickedMovie(id);
+  const { data: movieDetails, isLoading, isError } = useShowMovie(id);
   const { toggleInMovie } = useMoviesStore();
 
   useEffect(() => {

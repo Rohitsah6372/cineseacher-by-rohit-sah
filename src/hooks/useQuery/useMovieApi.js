@@ -9,7 +9,7 @@ export const useSearchedMovie = (searchTerm, currentPage) =>
     keepPreviousData: true,
   });
 
-export const useClickedMovie = imbdId =>
+export const useShowMovie = imbdId =>
   useQuery({
     queryKey: [imbdId],
     queryFn: () => moviesApi.show(imbdId),
