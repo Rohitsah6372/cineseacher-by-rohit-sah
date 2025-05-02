@@ -53,7 +53,7 @@ const MovieList = () => {
   }, []);
 
   const {
-    data: { search: movieList = [], totalMovieCount } = {},
+    data: { search: movieList = [], totalResults: totalMovieCount } = {},
     isLoading,
     isError,
   } = useSearchedMovie(debouncedSearchKey, currentPageNumber);
@@ -68,7 +68,7 @@ const MovieList = () => {
   if (isError) return <ErrorMessage />;
 
   return (
-    <div className="bg-[#f5f5f5]">
+    <div className="flex flex-col bg-[#f5f5f5]">
       <div>
         <SearchBar
           actionBlock={
@@ -100,14 +100,12 @@ const MovieList = () => {
           </div>
         )}
       </div>
-      <div className="mb-5 self-end">
+      <div className="mb-5 mt-4 items-center   self-center ">
         <Pagination
+          count={totalMovieCount}
           navigate={page => handlePageNavigation(page)}
           pageNo={currentPageNumber || DEFAULT_PAGE_INDEX}
           pageSize={DEFAULT_PAGE_SIZE}
-          count={
-            totalMovieCount ? Math.ceil(totalMovieCount / DEFAULT_PAGE_SIZE) : 0
-          }
         />
       </div>
     </div>
