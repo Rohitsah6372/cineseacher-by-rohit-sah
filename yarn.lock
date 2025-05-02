@@ -6026,7 +6026,7 @@ form-data@^4.0.0:
     combined-stream "^1.0.8"
     es-set-tostringtag "^2.1.0"
     mime-types "^2.1.12"
-
+    
 formik@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/formik/-/formik-2.2.0.tgz#04c067f6b832aa15cae055f6df6f4aa485b5be35"
