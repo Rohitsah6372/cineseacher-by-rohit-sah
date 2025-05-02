@@ -6,7 +6,6 @@ const MovieCard = ({ movie }) => {
   const { Title: title, Year, Poster: poster } = movie;
 
   return (
-    <div className="">
       <div
         className="bg-white-900 flex w-56 flex-col
       items-center justify-between  rounded-xl p-4 shadow-2xl"
