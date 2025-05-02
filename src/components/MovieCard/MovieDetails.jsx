@@ -2,16 +2,13 @@ import { useEffect } from "react";
 
 import PageLoader from "components/commons/PageLoader";
 import { useClickedMovie } from "hooks/useQuery/useMovieApi";
-import { Modal, Typography } from "neetoui";
-import { useTranslation } from "react-i18next";
+import { Modal } from "neetoui";
 import ErrorMessage from "src/commons/ErrorMessage";
 import useMoviesStore from "stores/useMovieStore";
 
-import Image from "./Image";
+import ModalDetails from "./ModalDetails";
 
 const MovieDetails = ({ id, setIsModalOpen }) => {
-  const { t } = useTranslation();
-
   const { data: movieDetails, isLoading, isError } = useClickedMovie(id);
   const { toggleInMovie } = useMoviesStore();
 
@@ -21,27 +18,9 @@ const MovieDetails = ({ id, setIsModalOpen }) => {
     }
   }, [movieDetails, toggleInMovie]);
 
-  if (isLoading) {
-    return <PageLoader />;
-  }
-
   if (isError) {
     return <ErrorMessage />;
   }
-
-  const {
-    title,
-    genre: genres,
-    poster,
-    plot,
-    director,
-    actors,
-    boxOffice,
-    year,
-    runtime,
-    language,
-    rated,
-  } = movieDetails;
 
   return (
     <Modal
@@ -54,59 +33,7 @@ const MovieDetails = ({ id, setIsModalOpen }) => {
         setIsModalOpen(false);
       }}
     >
-      <div className="mb-4">
-        <Typography className="text-left text-xl font-bold" id="dialog1Title">
-          {title}
-        </Typography>
-        <div>
-          {genres.split(", ").map(genre => (
-            <Typography
-              className="m-1 inline-block rounded-xl bg-gray-300 px-2 "
-              key={genre}
-              lineHeight="normal"
-              style=""
-            >
-              {genre}
-            </Typography>
-          ))}
-        </div>
-      </div>
-      <div className="grid grid-cols-3">
-        <div className="col-span-1 rounded-2xl p-4">
-          <Image {...{ title, poster }} />
-        </div>
-        <div className="col-span-2 pl-8 pt-4 text-gray-700">
-          <Typography>{plot}</Typography>
-          <Typography>
-            <span className="font-bold text-black  ">{t("director")}: </span>
-            {director}
-          </Typography>
-          <Typography>
-            <span className="font-bold text-black">{t("actor")}: </span>
-            {actors}
-          </Typography>
-          <Typography>
-            <span className="font-bold text-black">{t("boxOffice")}: </span>
-            {boxOffice}
-          </Typography>
-          <Typography>
-            <span className="font-bold text-black">{t("year")}: </span>
-            {year}
-          </Typography>
-          <Typography>
-            <span className="font-bold text-black">{t("runtime")}: </span>
-            {runtime}
-          </Typography>
-          <Typography>
-            <span className="font-bold text-black">{t("language")}: </span>
-            {language}
-          </Typography>
-          <Typography>
-            <span className="font-bold text-black">{t("rated")}: </span>
-            {rated}
-          </Typography>
-        </div>
-      </div>
+      {isLoading ? <PageLoader /> : <ModalDetails {...{ movieDetails }} />}
     </Modal>
   );
 };
