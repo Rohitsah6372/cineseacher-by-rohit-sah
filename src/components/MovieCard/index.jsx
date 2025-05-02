@@ -24,10 +24,10 @@ const MovieCard = ({ movie }) => {
       flex-col items-center  justify-between rounded-xl p-4 shadow-2xl"
         onClick={handleClick}
       >
-        <div className="h-2/2 px-4">
+        <div className="h-1/2 px-4">
           <Image {...{ title, poster }} />
         </div>
-        <Typography className="inline-block truncate text-center font-bold">
+        <Typography className="inline-block w-40 truncate text-center font-bold">
           {title}
         </Typography>
         <Typography className="text-gray-500">
