@@ -4,7 +4,7 @@ import { Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
 import useMoviesStore from "stores/useMovieStore";
 
-import ViewHistoryItem from "./ViewHistoryItem";
+import Item from "./Item";
 
 const ViewHistory = () => {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ const ViewHistory = () => {
         moviesStore
           .filter(Boolean)
           .map(({ title, imdbId }) => (
-            <ViewHistoryItem
+            <Item
               id={imdbId}
               key={imdbId}
               ref={el => (movieItemRefs.current[imdbId] = el)}

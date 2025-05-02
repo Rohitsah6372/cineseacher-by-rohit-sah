@@ -1,10 +1,10 @@
+import Image from "components/commons/Image";
 import { Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
 
 import Genres from "./Genres";
-import Image from "./Image";
 
-const ModalDetails = ({ movieDetails }) => {
+const MovieDetails = ({ movieDetails }) => {
   const { t } = useTranslation();
 
   const {
@@ -71,4 +71,4 @@ const ModalDetails = ({ movieDetails }) => {
   );
 };
 
-export default ModalDetails;
+export default MovieDetails;

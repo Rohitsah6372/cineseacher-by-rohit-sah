@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
+import ErrorMessage from "components/commons/ErrorMessage";
 import NoDataToShow from "components/commons/NoDataToShow";
 import PageLoader from "components/commons/PageLoader";
 import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "components/contants";
-import MovieCard from "components/MovieCard";
 import SearchBar from "components/SearchBar";
 import useDebounce from "hooks/useDebounce";
 import { useSearchedMovie } from "hooks/useQuery/useMovieApi";
@@ -14,8 +14,9 @@ import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import routes from "routes";
-import ErrorMessage from "src/commons/ErrorMessage";
 import { buildUrl } from "utils/url";
+
+import MovieCard from "./MovieCard";
 
 const MovieList = () => {
   const { t } = useTranslation();

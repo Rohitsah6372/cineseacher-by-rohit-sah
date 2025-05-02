@@ -1,10 +1,10 @@
 import { useState } from "react";
 
+import MovieModal from "components/Modal";
 import { Button, Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
 
-import Image from "./Image";
-import MovieDetails from "./MovieDetails";
+import Image from "../commons/Image";
 
 const MovieCard = ({ movie }) => {
   const { t } = useTranslation();
@@ -20,9 +20,8 @@ const MovieCard = ({ movie }) => {
   return (
     <div className="">
       <div
-        className="bg-white-900 flex w-56 cursor-pointer
+        className="bg-white-900 flex w-56
       flex-col items-center  justify-between rounded-xl p-4 shadow-2xl"
-        onClick={handleClick}
       >
         <div className="h-1/2 px-4">
           <Image {...{ title, poster }} />
@@ -34,13 +33,14 @@ const MovieCard = ({ movie }) => {
           {t("movie")} - {year}
         </Typography>
         <Button
-          className="m-1 self-start text-center text-blue-700 shadow-sm"
+          className="neeto-ui-cursor-pointer neeto-ui-text-center  neeto-ui-shadow-sm m-1 self-start text-blue-700"
           label={t("movieDetails")}
           style="tertiary"
+          onClick={handleClick}
         />
       </div>
       {isModalOpen && (
-        <MovieDetails id={imdbId} setIsModalOpen={setIsModalOpen} />
+        <MovieModal id={imdbId} setIsModalOpen={setIsModalOpen} />
       )}
     </div>
   );
