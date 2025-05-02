@@ -9,7 +9,9 @@ const Item = React.forwardRef(({ id, selectedMovieId, title }, ref) => (
       id === selectedMovieId ? "bg-blue-700 text-white" : "bg-blue-200"
     }`}
   >
-    <Typography className="truncate p-2 font-medium">{title}</Typography>
+    <Typography className="truncate p-2 text-xs font-medium ">
+      {title}
+    </Typography>
   </div>
 ));
 
