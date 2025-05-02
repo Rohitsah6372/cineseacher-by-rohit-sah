@@ -6,7 +6,7 @@ const Home = () => (
     <div className="flex-1 overflow-y-auto">
       <MovieList />
     </div>
-    <div className="w-80 overflow-y-auto bg-blue-500">
+    <div className="w-80 overflow-y-auto ">
       <ViewHistory />
     </div>
   </div>
