@@ -1,3 +1,19 @@
 {
-  "helloWorld": "Hello World"
+  "helloWorld": "Hello World",
+  "searchMovies": "Search movies",
+  "noMovieToShow": "No movie to show",
+  "trySearchingSomething": "Try searching something.",
+  "errorWhileFetchinng": "Error occurred while fetching movies. Please try again later.",
+  "movie": "Movie",
+  "movieDetails": "View details",
+  "director": "Director",
+  "actor": "Actor",
+  "boxOffice": "Box Office",
+  "year": "Year",
+  "runtime": "Runtime",
+  "language": "Language",
+  "rated": "Rated",
+  "moviePosterAlt": "{{title}} poster image",
+  "viewHistoryTitle": "View history",
+  "noHistoryAvailable": "No movies viewed yet"
 }

@@ -1,9 +1,15 @@
-const ErrorMessage = () => (
-  <div>
-    <div className="flex items-center justify-center text-red-500">
-      <p>Error occurred while fetching movies. Please try again later.</p>
+import { useTransition } from "react";
+
+const ErrorMessage = () => {
+  const { t } = useTransition();
+
+  return (
+    <div>
+      <div className="flex items-center justify-center text-red-500">
+        <p>{t("errorWhileFetchinng")}</p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default ErrorMessage;

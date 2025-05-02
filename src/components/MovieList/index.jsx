@@ -11,12 +11,15 @@ import useQueryParams from "hooks/useQueryParams";
 import { Search } from "neetoicons";
 import { Input, Pagination } from "neetoui";
 import { isEmpty } from "ramda";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import routes from "routes";
 import ErrorMessage from "src/commons/ErrorMessage";
 import { buildUrl } from "utils/url";
 
 const MovieList = () => {
+  const { t } = useTranslation();
+
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchKey = useDebounce(searchTerm);
   const [currentPageNumber, setCurrentPageNumber] =
@@ -70,7 +73,7 @@ const MovieList = () => {
           actionBlock={
             <Input
               className="m-2 rounded-md border-[#ddd] bg-white p-2"
-              placeholder="Search Movies"
+              placeholder={t("searchMovies")}
               prefix={<Search />}
               ref={autoInputRef}
               type="Search"

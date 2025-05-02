@@ -1,11 +1,14 @@
 import { useState } from "react";
 
 import { Button, Typography } from "neetoui";
+import { useTranslation } from "react-i18next";
 
 import Image from "./Image";
 import MovieDetails from "./MovieDetails";
 
 const MovieCard = ({ movie }) => {
+  const { t } = useTranslation();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { imdbId, title, year, poster } = movie;
@@ -24,13 +27,15 @@ const MovieCard = ({ movie }) => {
         <div className="h-2/2 px-4">
           <Image {...{ title, poster }} />
         </div>
-        <Typography className="inline-block text-center font-bold">
+        <Typography className="inline-block truncate text-center font-bold">
           {title}
         </Typography>
-        <Typography className="text-gray-500">Movie - {year}</Typography>
+        <Typography className="text-gray-500">
+          {t("movie")} - {year}
+        </Typography>
         <Button
           className="m-1 self-start text-center text-blue-700 shadow-sm"
-          label="View details"
+          label={t("movieDetails")}
           style="tertiary"
         />
       </div>

@@ -3,12 +3,15 @@ import { useEffect } from "react";
 import PageLoader from "components/commons/PageLoader";
 import { useClickedMovie } from "hooks/useQuery/useMovieApi";
 import { Modal, Typography } from "neetoui";
+import { useTranslation } from "react-i18next";
 import ErrorMessage from "src/commons/ErrorMessage";
 import useMoviesStore from "stores/useMovieStore";
 
 import Image from "./Image";
 
 const MovieDetails = ({ id, setIsModalOpen }) => {
+  const { t } = useTranslation();
+
   const { data: movieDetails, isLoading, isError } = useClickedMovie(id);
   const { toggleInMovie } = useMoviesStore();
 
@@ -75,31 +78,31 @@ const MovieDetails = ({ id, setIsModalOpen }) => {
         <div className="col-span-2 pl-8 pt-4 text-gray-700">
           <Typography>{plot}</Typography>
           <Typography>
-            <span className="font-bold text-black  ">Director: </span>
+            <span className="font-bold text-black  ">{t("director")}: </span>
             {director}
           </Typography>
           <Typography>
-            <span className="font-bold text-black">Actor: </span>
+            <span className="font-bold text-black">{t("actor")}: </span>
             {actors}
           </Typography>
           <Typography>
-            <span className="font-bold text-black">Box Office: </span>
+            <span className="font-bold text-black">{t("boxOffice")}: </span>
             {boxOffice}
           </Typography>
           <Typography>
-            <span className="font-bold text-black">Year: </span>
+            <span className="font-bold text-black">{t("year")}: </span>
             {year}
           </Typography>
           <Typography>
-            <span className="font-bold text-black">Runtime: </span>
+            <span className="font-bold text-black">{t("runtime")}: </span>
             {runtime}
           </Typography>
           <Typography>
-            <span className="font-bold text-black">Language: </span>
+            <span className="font-bold text-black">{t("language")}: </span>
             {language}
           </Typography>
           <Typography>
-            <span className="font-bold text-black">Rated: </span>
+            <span className="font-bold text-black">{t("rated")}: </span>
             {rated}
           </Typography>
         </div>
