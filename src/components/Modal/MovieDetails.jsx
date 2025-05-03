@@ -1,11 +1,14 @@
 import Image from "components/commons/Image";
-import { Typography } from "neetoui";
+import { Favorite } from "neetoicons";
+import { Button, Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
+import useFavouritStore from "stores/useFavouriteStore";
 
 import Genres from "./Genres";
 
 const MovieDetails = ({ movieDetails }) => {
   const { t } = useTranslation();
+  // const [isFavorited, setIsFavorited] = useState(false);
 
   const {
     title,
@@ -19,14 +22,32 @@ const MovieDetails = ({ movieDetails }) => {
     runtime,
     language,
     rated,
+    imdbId,
   } = movieDetails || {};
+
+  // console.log("IMBDID : ", imdbId);
+
+  const handleClick = () => {
+    toggleInMovie(imdbId, title);
+  };
+
+  const { isMoviePresentInFavourite, toggleInMovie } = useFavouritStore();
 
   return (
     <>
       <div className="mb-4">
-        <Typography className="text-left text-xl font-bold" id="dialog1Title">
-          {title}
-        </Typography>
+        <div className="flex">
+          <Typography className="text-left text-xl font-bold" id="dialog1Title">
+            {title}
+          </Typography>
+          <div className="ml-4">
+            {isMoviePresentInFavourite(imdbId) ? (
+              <Button icon={Favorite} style="danger" onClick={handleClick} />
+            ) : (
+              <Button icon={Favorite} style="tertiary" onClick={handleClick} />
+            )}
+          </div>
+        </div>
         <div>
           <Genres {...{ genres }} />
         </div>
