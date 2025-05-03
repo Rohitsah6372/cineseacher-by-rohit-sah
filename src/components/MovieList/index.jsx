@@ -68,39 +68,37 @@ const MovieList = () => {
   if (isError) return <ErrorMessage />;
 
   return (
-    <div className="flex flex-col bg-[#f5f5f5]">
-      <div>
-        <SearchBar
-          actionBlock={
-            <Input
-              className="m-2 rounded-md border-[#ddd] bg-white p-2"
-              placeholder={t("searchMovies")}
-              prefix={<Search />}
-              ref={autoInputRef}
-              type="Search"
-              value={searchTerm}
-              onChange={e => {
-                setSearchTerm(e.target.value);
-                setCurrentPageNumber(DEFAULT_PAGE_INDEX);
-              }}
-            />
-          }
-        />
-      </div>
-      <div>
-        {isEmpty(movieList) ? (
-          <div className="flex h-full w-full items-center justify-center">
-            <NoDataToShow />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 justify-items-center gap-x-4 gap-y-10 p-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="flex h-screen flex-col bg-[#f5f5f5]">
+      <SearchBar
+        actionBlock={
+          <Input
+            className="mx-2 rounded-md border-[#ddd] bg-white p-2 shadow-md"
+            placeholder={t("searchMovies")}
+            prefix={<Search />}
+            ref={autoInputRef}
+            type="Search"
+            value={searchTerm}
+            onChange={e => {
+              setSearchTerm(e.target.value);
+              setCurrentPageNumber(DEFAULT_PAGE_INDEX);
+            }}
+          />
+        }
+      />
+      {isEmpty(movieList) ? (
+        <div className="flex h-full w-full items-center justify-center">
+          <NoDataToShow />
+        </div>
+      ) : (
+        <div className="h-4/6 overflow-y-auto  px-2">
+          <div className="grid grid-cols-1 justify-items-center gap-x-4 gap-y-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {movieList.map(movie => (
               <MovieCard key={movie["imdbId"]} movie={movie} />
             ))}
           </div>
-        )}
-      </div>
-      <div className="mb-5 mt-4 items-center   self-center ">
+        </div>
+      )}
+      <div className="mb-5 mt-4 flex items-center justify-center border-t-4 shadow-2xl ">
         <Pagination
           count={totalMovieCount}
           navigate={page => handlePageNavigation(page)}

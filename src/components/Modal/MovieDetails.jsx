@@ -27,11 +27,10 @@ const MovieDetails = ({ movieDetails }) => {
 
   // console.log("IMBDID : ", imdbId);
 
-  const handleClick = () => {
-    toggleInMovie(imdbId, title);
-  };
+  const { isMoviePresentInFavourite, addMovie, removeMovie } =
+    useFavouritStore();
 
-  const { isMoviePresentInFavourite, toggleInMovie } = useFavouritStore();
+  // console.log(favouriteList);
 
   return (
     <>
@@ -42,9 +41,17 @@ const MovieDetails = ({ movieDetails }) => {
           </Typography>
           <div className="ml-4">
             {isMoviePresentInFavourite(imdbId) ? (
-              <Button icon={Favorite} style="danger" onClick={handleClick} />
+              <Button
+                icon={Favorite}
+                style="danger"
+                onClick={() => removeMovie(movieDetails)}
+              />
             ) : (
-              <Button icon={Favorite} style="tertiary" onClick={handleClick} />
+              <Button
+                icon={Favorite}
+                style="tertiary"
+                onClick={() => addMovie(movieDetails)}
+              />
             )}
           </div>
         </div>

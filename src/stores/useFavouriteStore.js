@@ -8,20 +8,29 @@ const useFavouritStore = create(
       isMoviePresentInFavourite: movieId => {
         const { favouriteList } = get();
 
-        return favouriteList.filter(Boolean).some(item => item.id === movieId);
+        return favouriteList.some(item => item.id === movieId);
       },
-      toggleInMovie: (favId, favName) =>
+      addMovie: movieDetails =>
         set(({ favouriteList }) => {
-          const found = favouriteList.some(item => item.id === favId);
-
-          const updatedList = found
-            ? favouriteList.filter(item => item.id !== favId)
-            : [{ id: favId, name: favName }, ...favouriteList];
+          const exists = favouriteList.some(
+            item => item.id === movieDetails.imdbId
+          );
+          if (exists) return { favouriteList };
 
           return {
-            favouriteList: updatedList,
+            favouriteList: [
+              { id: movieDetails.imdbId, ...movieDetails },
+              ...favouriteList,
+            ],
           };
         }),
+
+      removeMovie: movieDetails =>
+        set(({ favouriteList }) => ({
+          favouriteList: favouriteList.filter(
+            item => item.id !== movieDetails.imdbId
+          ),
+        })),
     }),
     { name: "favourite-store" }
   )
