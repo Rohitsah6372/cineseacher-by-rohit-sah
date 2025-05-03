@@ -44,12 +44,20 @@ const MovieDetails = ({ movieDetails }) => {
               <Button
                 icon={Favorite}
                 style="danger"
+                tooltipProps={{
+                  content: "Remove from favourite",
+                  position: "right",
+                }}
                 onClick={() => removeMovie(movieDetails)}
               />
             ) : (
               <Button
                 icon={Favorite}
                 style="tertiary"
+                tooltipProps={{
+                  content: "Add to favourite",
+                  position: "right",
+                }}
                 onClick={() => addMovie(movieDetails)}
               />
             )}
