@@ -11,7 +11,7 @@ const MovieCard = ({ movie }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { imdbId, title, year, poster } = movie;
+  const { imdbId, title, year, poster, type } = movie;
 
   const handleClick = () => {
     setIsModalOpen(true);
@@ -30,7 +30,7 @@ const MovieCard = ({ movie }) => {
           {title}
         </Typography>
         <Typography className="text-gray-500">
-          {t("movie")} - {year}
+          {type === "movie" ? "Movie" : "Series"} - {year}
         </Typography>
         <Button
           className="neeto-ui-cursor-pointer neeto-ui-text-center  neeto-ui-shadow-sm m-1 self-start text-blue-700"
