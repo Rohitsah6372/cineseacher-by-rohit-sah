@@ -108,46 +108,42 @@ const MovieList = () => {
         }
       />
       <div>
-        <div>
-          <div>
-            {isFilterOpen && (
-              <div className="absolute right-4 top-16 z-50 h-48 w-96 rounded-md bg-white p-4 shadow-xl">
-                <div>
-                  <Input
-                    className="font-bold"
-                    label="Year"
-                    onChange={e => setYear(e.target.value)}
-                  />
-                </div>
-                <div className="mt-8">
-                  <Typography className="font-bold">Type</Typography>
-                  <div className="mt-2 flex">
-                    <Checkbox
-                      label="Movie"
-                      onChange={() => {
-                        setMovieType(prev => ({ ...prev, Movie: !prev.Movie }));
-                      }}
-                    />
-                    <Checkbox
-                      label="Series"
-                      onChange={() => {
-                        setMovieType(prev => ({
-                          ...prev,
-                          Series: !prev.Series,
-                        }));
-                      }}
-                    />
-                  </div>
-                </div>
+        {isFilterOpen && (
+          <div className="absolute right-4 top-16 z-50 h-48 w-96 rounded-md bg-white p-4 shadow-xl">
+            <div>
+              <Input
+                className="font-bold"
+                label="Year"
+                onChange={e => setYear(e.target.value)}
+              />
+            </div>
+            <div className="mt-8">
+              <Typography className="font-bold">Type</Typography>
+              <div className="mt-2 flex">
+                <Checkbox
+                  label="Movie"
+                  onChange={() => {
+                    setMovieType(prev => ({ ...prev, Movie: !prev.Movie }));
+                  }}
+                />
+                <Checkbox
+                  label="Series"
+                  onChange={() => {
+                    setMovieType(prev => ({
+                      ...prev,
+                      Series: !prev.Series,
+                    }));
+                  }}
+                />
               </div>
-            )}
+            </div>
           </div>
-          <div>
-            <MovieToBeShown movieList={newMovieList} />
-          </div>
-        </div>
+        )}
       </div>
-      <div className="mb-5 mt-4 flex items-center justify-center border-t-4 shadow-2xl ">
+      <div className="flex-1 overflow-y-auto px-4">
+        <MovieToBeShown movieList={newMovieList} />
+      </div>
+      <div className="mb-12 flex items-center justify-center border-t-4 pt-1 shadow-2xl ">
         <Pagination
           count={totalMovieCount}
           navigate={page => handlePageNavigation(page)}
