@@ -9,8 +9,8 @@ import useDebounce from "hooks/useDebounce";
 import usefilterMovie from "hooks/usefilterMovie";
 import { useSearchedMovie } from "hooks/useQuery/useMovieApi";
 import useQueryParams from "hooks/useQueryParams";
-import { Filter, Search } from "neetoicons";
-import { Button, Pagination, Typography } from "neetoui";
+import { Close, Filter, Search } from "neetoicons";
+import { Pagination, Typography } from "neetoui";
 import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -99,18 +99,21 @@ const MovieList = () => {
                 setCurrentPageNumber(DEFAULT_PAGE_INDEX);
               }}
             />
-            <Button
-              className="mr-1 border-[#ddd] p-2 shadow-md"
-              icon={Filter}
-              onClick={() => setIsFilterOpen(prev => !prev)}
-            />
+            <button onClick={() => setIsFilterOpen(prev => !prev)}>
+              <Filter className="outline-none mr-1 border-none border-[#ddd] p-0.5 shadow-md hover:text-green-700 " />
+            </button>
           </>
         }
       />
       <div>
         {isFilterOpen && (
-          <div className="absolute right-4 top-16 z-50 h-48 w-96 rounded-md bg-white p-4 shadow-xl">
-            <div>
+          <div className=" absolute right-4 top-16 z-50 h-48 w-96 rounded-md bg-white p-4 shadow-xl">
+            <div className="flex justify-end ">
+              <button onClick={() => setIsFilterOpen(prev => !prev)}>
+                <Close className="outline-none h-4  w-4 border-none text-red-600 hover:bg-red-600 hover:font-bold hover:text-white " />
+              </button>
+            </div>
+            <div className="">
               <Input
                 className="font-bold"
                 label="Year"

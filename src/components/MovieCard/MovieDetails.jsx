@@ -23,9 +23,6 @@ const MovieDetails = () => {
       isOpen
       className="flex  flex-col p-4"
       size="large"
-      onClose={() => {
-        // setIsOpen(false);
-      }}
     >
       <div className="mb-4">
         <Typography className="text-left text-xl font-bold" id="dialog1Title">
