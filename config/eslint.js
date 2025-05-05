@@ -65,7 +65,7 @@ module.exports = {
   ],
   rules: {
     // auto-fixable: Respect all Prettier rules and apply it.
-    "prettier/prettier": "error",
+    "prettier/prettier": "warn",
     // not-auto-fixable: No unused variables allowed.
     "no-unused-vars": [
       "error",
