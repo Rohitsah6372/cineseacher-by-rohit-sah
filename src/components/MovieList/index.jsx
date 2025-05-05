@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { Checkbox, Input } from "@bigbinary/neetoui";
-import ErrorMessage from "components/commons/ErrorMessage";
-import PageLoader from "components/commons/PageLoader";
+import { ErrorMessage, PageLoader } from "components/commons";
 import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "components/contants";
 import SearchBar from "components/SearchBar";
 import useDebounce from "hooks/useDebounce";
@@ -11,13 +10,12 @@ import { useSearchedMovie } from "hooks/useQuery/useMovieApi";
 import useQueryParams from "hooks/useQueryParams";
 import { Close, Filter, Search } from "neetoicons";
 import { Pagination, Typography } from "neetoui";
-import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import routes from "routes";
 import { buildUrl } from "utils/url";
 
-import MovieToBeShown from "./MovieToBeShown";
+import MovieData from "./MovieData";
 
 const MovieList = () => {
   const { t } = useTranslation();
@@ -75,12 +73,7 @@ const MovieList = () => {
 
   if (isError) return <ErrorMessage />;
 
-  console.log(movieList);
-
-  console.log("Year : ", isEmpty(year));
-
   const newMovieList = usefilterMovie(movieList, year, movieType);
-  console.log("New Movie List ", newMovieList);
 
   return (
     <div className="relative flex h-screen flex-col bg-[#f5f5f5]">
@@ -144,7 +137,7 @@ const MovieList = () => {
         )}
       </div>
       <div className="flex-1 overflow-y-auto px-4">
-        <MovieToBeShown movieList={newMovieList} />
+        <MovieData movieList={newMovieList} />
       </div>
       <div className="mb-12 flex items-center justify-center border-t-4 pt-1 shadow-2xl ">
         <Pagination

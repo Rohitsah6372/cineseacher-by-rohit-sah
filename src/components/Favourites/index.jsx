@@ -1,7 +1,7 @@
+import { Header } from "components/commons";
 import useFavouritStore from "stores/useFavouriteStore";
 
 import FavouriteItem from "./FavouriteItem";
-import Header from "./Header";
 
 const Favourites = () => {
   const { favouriteList } = useFavouritStore();
@@ -14,8 +14,6 @@ const Favourites = () => {
       <div className="flex h-screen w-screen justify-center p-4">
         <div className="h-4/5 w-3/5 overflow-y-auto bg-white">
           {favouriteList.map(({ imdbId: id, ...details }) => (
-            // console.log("fav : ", details);
-
             <FavouriteItem key={id} {...{ details }} />
           ))}
         </div>

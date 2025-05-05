@@ -1,8 +1,6 @@
 import { isEmpty } from "ramda";
 
 const usefilterMovie = (movieList, year, { Movie: movie, Series: series }) => {
-  console.log("Type : ", movie, series);
-
   let filteredList = movieList;
 
   if (!isEmpty(year)) {

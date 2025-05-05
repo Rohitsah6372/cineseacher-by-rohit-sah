@@ -1,8 +1,8 @@
-import NoDataToShow from "components/commons/NoDataToShow";
+import { NoDataToShow } from "components/commons";
 import MovieCard from "components/MovieCard";
 import { isEmpty } from "ramda";
 
-const MovieToBeShown = ({ movieList }) => (
+const MovieData = ({ movieList }) => (
   <div>
     {isEmpty(movieList) ? (
       <div className="mt-8 flex h-full w-full flex-1 items-center justify-center pt-4">
@@ -20,4 +20,4 @@ const MovieToBeShown = ({ movieList }) => (
   </div>
 );
 
-export default MovieToBeShown;
+export default MovieData;

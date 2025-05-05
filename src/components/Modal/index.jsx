@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-import ErrorMessage from "components/commons/ErrorMessage";
-import PageLoader from "components/commons/PageLoader";
+import { ErrorMessage, PageLoader } from "components/commons";
 import { useShowMovie } from "hooks/useQuery/useMovieApi";
 import { Modal } from "neetoui";
 import useMoviesStore from "stores/useMovieStore";

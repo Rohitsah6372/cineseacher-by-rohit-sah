@@ -1,4 +1,4 @@
-import Image from "components/commons/Image";
+import { Image } from "components/commons";
 import { Favorite } from "neetoicons";
 import { Button, Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
