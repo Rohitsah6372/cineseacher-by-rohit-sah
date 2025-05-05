@@ -16,7 +16,7 @@ const ViewHistory = () => {
     if (selectedMovieId && movieItemRefs.current[selectedMovieId]) {
       movieItemRefs.current[selectedMovieId].scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "nearest",
       });
     }
   }, [selectedMovieId]);

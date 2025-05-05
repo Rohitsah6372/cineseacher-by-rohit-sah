@@ -15,5 +15,6 @@
   "rated": "Rated",
   "moviePosterAlt": "{{title}} poster image",
   "viewHistoryTitle": "View history",
-  "noHistoryAvailable": "No movies viewed yet"
+  "noHistoryAvailable": "No movies viewed yet",
+  "enterYear": "Year"
 }
