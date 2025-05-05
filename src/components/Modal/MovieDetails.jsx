@@ -7,8 +7,10 @@ import useFavouritStore from "stores/useFavouriteStore";
 import Genres from "./Genres";
 
 const MovieDetails = ({ movieDetails }) => {
+  const { isMoviePresentInFavourite, addMovie, removeMovie } =
+    useFavouritStore();
+
   const { t } = useTranslation();
-  // const [isFavorited, setIsFavorited] = useState(false);
 
   const {
     title,
@@ -24,13 +26,6 @@ const MovieDetails = ({ movieDetails }) => {
     rated,
     imdbId,
   } = movieDetails || {};
-
-  // console.log("IMBDID : ", imdbId);
-
-  const { isMoviePresentInFavourite, addMovie, removeMovie } =
-    useFavouritStore();
-
-  // console.log(favouriteList);
 
   return (
     <>

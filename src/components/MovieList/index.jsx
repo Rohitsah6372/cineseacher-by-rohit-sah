@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Checkbox, Input } from "@bigbinary/neetoui";
+import { Input } from "@bigbinary/neetoui";
 import { ErrorMessage, PageLoader } from "components/commons";
 import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "components/contants";
 import SearchBar from "components/SearchBar";
@@ -8,18 +8,17 @@ import useDebounce from "hooks/useDebounce";
 import usefilterMovie from "hooks/usefilterMovie";
 import { useSearchedMovie } from "hooks/useQuery/useMovieApi";
 import useQueryParams from "hooks/useQueryParams";
-import { Close, Filter, Search } from "neetoicons";
-import { Pagination, Typography } from "neetoui";
+import { Filter, Search } from "neetoicons";
+import { Pagination } from "neetoui";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
 
+import FilterList from "./FilterList";
 import MovieData from "./MovieData";
 
 const MovieList = () => {
-  const { t } = useTranslation();
-
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchKey = useDebounce(searchTerm);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -31,6 +30,8 @@ const MovieList = () => {
 
   const [currentPageNumber, setCurrentPageNumber] =
     useState(DEFAULT_PAGE_INDEX);
+
+  const { t } = useTranslation();
 
   const { page = DEFAULT_PAGE_INDEX } = useQueryParams();
 
@@ -100,40 +101,7 @@ const MovieList = () => {
       />
       <div>
         {isFilterOpen && (
-          <div className=" absolute right-4 top-16 z-50 h-48 w-96 rounded-md bg-white p-4 shadow-xl">
-            <div className="flex justify-end ">
-              <button onClick={() => setIsFilterOpen(prev => !prev)}>
-                <Close className="outline-none h-4  w-4 border-none text-red-600 hover:bg-red-600 hover:font-bold hover:text-white " />
-              </button>
-            </div>
-            <div className="">
-              <Input
-                className="font-bold"
-                label="Year"
-                onChange={e => setYear(e.target.value)}
-              />
-            </div>
-            <div className="mt-8">
-              <Typography className="font-bold">Type</Typography>
-              <div className="mt-2 flex">
-                <Checkbox
-                  label="Movie"
-                  onChange={() => {
-                    setMovieType(prev => ({ ...prev, Movie: !prev.Movie }));
-                  }}
-                />
-                <Checkbox
-                  label="Series"
-                  onChange={() => {
-                    setMovieType(prev => ({
-                      ...prev,
-                      Series: !prev.Series,
-                    }));
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+          <FilterList {...{ setYear, setMovieType, setIsFilterOpen }} />
         )}
       </div>
       <div className="flex-1 overflow-y-auto px-4">
