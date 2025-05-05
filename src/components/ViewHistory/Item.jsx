@@ -6,7 +6,12 @@ import { Typography } from "neetoui";
 import WarningModal from "./WarningModal";
 
 const Item = React.forwardRef(({ id, selectedMovieId, title }, ref) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div
@@ -20,7 +25,7 @@ const Item = React.forwardRef(({ id, selectedMovieId, title }, ref) => {
       </Typography>
       <button
         className="flex h-8 w-8 items-center justify-center rounded bg-transparent transition duration-700 ease-in hover:border hover:border-red-500 hover:shadow-md"
-        onClick={() => setIsDeleted(true)}
+        onClick={() => setIsOpen(true)}
       >
         <Delete
           className={`h-4 w-4  rounded-3xl   hover:h-5 hover:w-5  ${
@@ -29,7 +34,7 @@ const Item = React.forwardRef(({ id, selectedMovieId, title }, ref) => {
       ${isDeleted ? "rotate-180 text-red-700   " : "rotate-0"}`}
         />
       </button>
-      {isDeleted && <WarningModal {...{ id, title, setIsDeleted }} />}
+      {isOpen && <WarningModal {...{ id, title, closeModal, setIsDeleted }} />}
     </div>
   );
 });

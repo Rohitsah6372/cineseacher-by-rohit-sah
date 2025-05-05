@@ -8,6 +8,7 @@ const Header = () => (
       <span className="text-blue-600">Cine </span>Searcher
     </Typography>
     <NavLink
+      exact
       activeClassName="px-2 font-semibold text-blue-600"
       className="px-2 text-black"
       to={routes.root}
@@ -15,6 +16,7 @@ const Header = () => (
       Home
     </NavLink>
     <NavLink
+      exact
       activeClassName="px-2 font-semibold text-blue-500"
       className="px-2 text-black"
       to={routes.favourite}

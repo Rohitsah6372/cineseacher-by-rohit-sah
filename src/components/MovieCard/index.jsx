@@ -33,7 +33,7 @@ const MovieCard = ({ movie }) => {
           {type === "movie" ? "Movie" : "Series"} - {year}
         </Typography>
         <Button
-          className="neeto-ui-cursor-pointer neeto-ui-text-center  neeto-ui-shadow-sm m-1 self-start text-blue-700"
+          className="neeto-ui-cursor-pointer neeto-ui-text-center  neeto-ui-shadow-sm m-1 text-blue-700"
           label={t("movieDetails")}
           style="tertiary"
           onClick={handleClick}

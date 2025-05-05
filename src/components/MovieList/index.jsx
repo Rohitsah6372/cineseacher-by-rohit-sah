@@ -88,7 +88,7 @@ const MovieList = () => {
         actionBlock={
           <>
             <Input
-              className="mx-2 rounded-md border-[#ddd] bg-white p-2 shadow-md"
+              className="mx-2 rounded-md border-[#ddd] bg-white p-2 "
               placeholder={t("searchMovies")}
               prefix={<Search />}
               ref={autoInputRef}
