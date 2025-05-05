@@ -8,7 +8,7 @@ import Item from "./Item";
 
 const ViewHistory = () => {
   const { t } = useTranslation();
-  const { moviesStore, selectedMovieId } = useMoviesStore();
+  const { moviesStore, selectedMovieId, removeAll } = useMoviesStore();
 
   const movieItemRefs = useRef({});
 
@@ -16,16 +16,22 @@ const ViewHistory = () => {
     if (selectedMovieId && movieItemRefs.current[selectedMovieId]) {
       movieItemRefs.current[selectedMovieId].scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "nearest",
       });
     }
   }, [selectedMovieId]);
 
   return (
     <div className="max-h-[400px] overflow-y-auto">
-      <Typography className="p-4 text-center font-bold">
-        {t("viewHistoryTitle")}
-      </Typography>
+      <div className="flex items-center justify-between p-4 ">
+        <Typography className="  font-bold">{t("viewHistoryTitle")}</Typography>
+        <Typography
+          className="cursor-pointer text-xs font-bold text-gray-500 hover:text-red-600"
+          onClick={removeAll}
+        >
+          Clear all
+        </Typography>
+      </div>
       {moviesStore.length > 0 ? (
         moviesStore
           .filter(Boolean)

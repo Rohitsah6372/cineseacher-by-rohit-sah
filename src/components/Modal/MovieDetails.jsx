@@ -1,10 +1,15 @@
-import Image from "components/commons/Image";
-import { Typography } from "neetoui";
+import { Image } from "components/commons";
+import { Favorite } from "neetoicons";
+import { Button, Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
+import useFavouritStore from "stores/useFavouriteStore";
 
 import Genres from "./Genres";
 
 const MovieDetails = ({ movieDetails }) => {
+  const { isMoviePresentInFavourite, addMovie, removeMovie } =
+    useFavouritStore();
+
   const { t } = useTranslation();
 
   const {
@@ -19,14 +24,40 @@ const MovieDetails = ({ movieDetails }) => {
     runtime,
     language,
     rated,
+    imdbId,
   } = movieDetails || {};
 
   return (
     <>
       <div className="mb-4">
-        <Typography className="text-left text-xl font-bold" id="dialog1Title">
-          {title}
-        </Typography>
+        <div className="flex">
+          <Typography className="text-left text-xl font-bold" id="dialog1Title">
+            {title}
+          </Typography>
+          <div className="ml-4">
+            {isMoviePresentInFavourite(imdbId) ? (
+              <Button
+                icon={Favorite}
+                style="danger"
+                tooltipProps={{
+                  content: "Remove from favourite",
+                  position: "right",
+                }}
+                onClick={() => removeMovie(movieDetails)}
+              />
+            ) : (
+              <Button
+                icon={Favorite}
+                style="tertiary"
+                tooltipProps={{
+                  content: "Add to favourite",
+                  position: "right",
+                }}
+                onClick={() => addMovie(movieDetails)}
+              />
+            )}
+          </div>
+        </div>
         <div>
           <Genres {...{ genres }} />
         </div>

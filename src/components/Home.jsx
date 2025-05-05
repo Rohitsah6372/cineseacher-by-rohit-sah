@@ -1,13 +1,19 @@
+import Header from "./commons/Header";
 import MovieList from "./MovieList";
 import ViewHistory from "./ViewHistory";
 
 const Home = () => (
-  <div className="flex h-screen overflow-hidden">
-    <div className="flex-1 overflow-y-auto pt-8 shadow-xl">
-      <MovieList />
+  <div className="flex h-screen flex-col overflow-hidden">
+    <div className="flex h-auto items-center bg-white p-1 shadow-md">
+      <Header />
     </div>
-    <div className="w-80 overflow-y-auto border-l border-gray-200 bg-white">
-      <ViewHistory />
+    <div className="flex w-full flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden  shadow-xl">
+        <MovieList />
+      </div>
+      <div className="w-3/12 overflow-y-auto border-4 border-gray-200 bg-white">
+        <ViewHistory />
+      </div>
     </div>
   </div>
 );

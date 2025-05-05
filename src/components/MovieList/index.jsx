@@ -1,30 +1,37 @@
 import { useEffect, useRef, useState } from "react";
 
-import ErrorMessage from "components/commons/ErrorMessage";
-import NoDataToShow from "components/commons/NoDataToShow";
-import PageLoader from "components/commons/PageLoader";
+import { Input } from "@bigbinary/neetoui";
+import { ErrorMessage, PageLoader } from "components/commons";
 import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "components/contants";
 import SearchBar from "components/SearchBar";
 import useDebounce from "hooks/useDebounce";
+import usefilterMovie from "hooks/usefilterMovie";
 import { useSearchedMovie } from "hooks/useQuery/useMovieApi";
 import useQueryParams from "hooks/useQueryParams";
-import { Search } from "neetoicons";
-import { Input, Pagination } from "neetoui";
-import { isEmpty } from "ramda";
+import { Filter, Search } from "neetoicons";
+import { Pagination } from "neetoui";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
 
-import MovieCard from "./MovieCard";
+import FilterList from "./FilterList";
+import MovieData from "./MovieData";
 
 const MovieList = () => {
-  const { t } = useTranslation();
-
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchKey = useDebounce(searchTerm);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [year, setYear] = useState("");
+  const [movieType, setMovieType] = useState({
+    Movie: false,
+    Series: false,
+  });
+
   const [currentPageNumber, setCurrentPageNumber] =
     useState(DEFAULT_PAGE_INDEX);
+
+  const { t } = useTranslation();
 
   const { page = DEFAULT_PAGE_INDEX } = useQueryParams();
 
@@ -67,13 +74,15 @@ const MovieList = () => {
 
   if (isError) return <ErrorMessage />;
 
+  const newMovieList = usefilterMovie(movieList, year, movieType);
+
   return (
-    <div className="flex flex-col bg-[#f5f5f5]">
-      <div>
-        <SearchBar
-          actionBlock={
+    <div className="relative flex h-screen flex-col bg-[#f5f5f5]">
+      <SearchBar
+        actionBlock={
+          <>
             <Input
-              className="m-2 rounded-md border-[#ddd] bg-white p-2"
+              className="mx-2 rounded-md border-[#ddd] bg-white p-2 "
               placeholder={t("searchMovies")}
               prefix={<Search />}
               ref={autoInputRef}
@@ -84,23 +93,21 @@ const MovieList = () => {
                 setCurrentPageNumber(DEFAULT_PAGE_INDEX);
               }}
             />
-          }
-        />
-      </div>
+            <button onClick={() => setIsFilterOpen(prev => !prev)}>
+              <Filter className="outline-none mr-1 border-none border-[#ddd] p-0.5 shadow-md hover:text-green-700 " />
+            </button>
+          </>
+        }
+      />
       <div>
-        {isEmpty(movieList) ? (
-          <div className="flex h-full w-full items-center justify-center">
-            <NoDataToShow />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 justify-items-center gap-x-4 gap-y-10 p-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {movieList.map(movie => (
-              <MovieCard key={movie["imdbId"]} movie={movie} />
-            ))}
-          </div>
+        {isFilterOpen && (
+          <FilterList {...{ setYear, setMovieType, setIsFilterOpen }} />
         )}
       </div>
-      <div className="mb-5 mt-4 items-center   self-center ">
+      <div className="flex-1 overflow-y-auto px-4">
+        <MovieData movieList={newMovieList} />
+      </div>
+      <div className="mb-12 flex items-center justify-center border-t-4 pt-1 shadow-2xl ">
         <Pagination
           count={totalMovieCount}
           navigate={page => handlePageNavigation(page)}
