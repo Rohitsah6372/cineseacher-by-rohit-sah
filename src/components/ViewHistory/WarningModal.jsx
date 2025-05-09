@@ -1,9 +1,11 @@
 import { Modal } from "@bigbinary/neetoui";
 import { Button, Typography } from "neetoui";
+import { useTranslation } from "react-i18next";
 import useMoviesStore from "stores/useMovieStore";
 
 const WarningModal = ({ id, title, setIsDeleted, closeModal }) => {
   const { removeMovie } = useMoviesStore();
+  const { t } = useTranslation();
 
   const handleClose = choice => {
     if (choice === "yes") {
@@ -25,10 +27,11 @@ const WarningModal = ({ id, title, setIsDeleted, closeModal }) => {
       isOpen
       className="p-8"
       size="medium"
+      title={t("deleteConfirmation")}
       onClose={closeModal}
     >
       <Typography className="p-2 text-center" id="dialog1Title" style="h4">
-        Do you really wants to remove
+        {t("deleteConfirmation")}
       </Typography>
       <Typography className="pb-4 text-center " style="h2">
         {title}
@@ -36,13 +39,13 @@ const WarningModal = ({ id, title, setIsDeleted, closeModal }) => {
       <div className="flex justify-evenly p-2">
         <Button
           className="px-8"
-          label="YES"
+          label={t("confirm")}
           style="danger"
           onClick={() => handleClose("yes")}
         />
         <Button
           className="px-8"
-          label="NO"
+          label={t("cancel")}
           style="primary"
           onClick={() => handleClose("no")}
         />

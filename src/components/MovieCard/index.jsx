@@ -30,7 +30,7 @@ const MovieCard = ({ movie }) => {
           {title}
         </Typography>
         <Typography className="text-gray-500">
-          {type === "movie" ? "Movie" : "Series"} - {year}
+          {type === "movie" ? t("movie") : t("series")} - {year}
         </Typography>
         <Button
           className="neeto-ui-cursor-pointer neeto-ui-text-center  neeto-ui-shadow-sm m-1 text-blue-700"

@@ -33,7 +33,7 @@ const MovieList = () => {
 
   const { t } = useTranslation();
 
-  const { page = DEFAULT_PAGE_INDEX } = useQueryParams();
+  const { page = DEFAULT_PAGE_INDEX, type, year: yearParam } = useQueryParams();
 
   const routerHistory = useHistory();
   const autoInputRef = useRef(null);
@@ -43,6 +43,22 @@ const MovieList = () => {
       setCurrentPageNumber(Number(page));
     }
   }, [page]);
+
+  useEffect(() => {
+    if (type) {
+      const types = type.split(",");
+      setMovieType({
+        Movie: types.includes("movie"),
+        Series: types.includes("series"),
+      });
+    }
+  }, [type]);
+
+  useEffect(() => {
+    if (yearParam) {
+      setYear(yearParam);
+    }
+  }, [yearParam]);
 
   useEffect(() => {
     const handleKeyDown = event => {
@@ -59,6 +75,24 @@ const MovieList = () => {
     };
   }, []);
 
+  const handleFilterChange = (newYear, newMovieType) => {
+    const types = [];
+    if (newMovieType.Movie) types.push("movie");
+
+    if (newMovieType.Series) types.push("series");
+
+    const queryParams = {
+      page: DEFAULT_PAGE_INDEX,
+      pageSize: DEFAULT_PAGE_SIZE,
+    };
+
+    if (types.length > 0) queryParams.type = types.join(",");
+
+    if (newYear) queryParams.year = newYear;
+
+    routerHistory.replace(buildUrl(routes.root, queryParams));
+  };
+
   const {
     data: { search: movieList = [], totalResults: totalMovieCount } = {},
     isLoading,
@@ -67,7 +101,17 @@ const MovieList = () => {
 
   const handlePageNavigation = page =>
     routerHistory.replace(
-      buildUrl(routes.root, { page, pageSize: DEFAULT_PAGE_SIZE })
+      buildUrl(routes.root, {
+        page,
+        pageSize: DEFAULT_PAGE_SIZE,
+        type:
+          movieType.Movie || movieType.Series
+            ? `${movieType.Movie ? "movie" : ""}${
+                movieType.Movie && movieType.Series ? "," : ""
+              }${movieType.Series ? "series" : ""}`
+            : undefined,
+        year: year || undefined,
+      })
     );
 
   if (isLoading) return <PageLoader />;
@@ -77,13 +121,13 @@ const MovieList = () => {
   const newMovieList = usefilterMovie(movieList, year, movieType);
 
   return (
-    <div className="relative flex h-screen flex-col bg-[#f5f5f5]">
+    <div className="relative flex h-screen flex-col bg-gradient-to-br from-gray-50 to-gray-100">
       <SearchBar
         actionBlock={
           <>
             <Input
-              className="mx-2 rounded-md border-[#ddd] bg-white p-2 "
-              placeholder={t("searchMovies")}
+              className="mx-2 rounded-md border-[#ddd] bg-white p-2"
+              placeholder={t("searchPlaceholder")}
               prefix={<Search />}
               ref={autoInputRef}
               type="Search"
@@ -94,20 +138,27 @@ const MovieList = () => {
               }}
             />
             <button onClick={() => setIsFilterOpen(prev => !prev)}>
-              <Filter className="outline-none mr-1 border-none border-[#ddd] p-0.5 shadow-md hover:text-green-700 " />
+              <Filter className="outline-none mr-1 border-none border-[#ddd] p-0.5 hover:text-green-700" />
             </button>
           </>
         }
       />
       <div>
         {isFilterOpen && (
-          <FilterList {...{ setYear, setMovieType, setIsFilterOpen }} />
+          <FilterList
+            initialMovieType={movieType}
+            initialYear={year}
+            setIsFilterOpen={setIsFilterOpen}
+            setMovieType={setMovieType}
+            setYear={setYear}
+            onFilterChange={handleFilterChange}
+          />
         )}
       </div>
       <div className="flex-1 overflow-y-auto px-4">
         <MovieData movieList={newMovieList} />
       </div>
-      <div className="mb-12 flex items-center justify-center border-t-4 pt-1 shadow-2xl ">
+      <div className="mb-12 flex items-center justify-center border-t-4 pt-1">
         <Pagination
           count={totalMovieCount}
           navigate={page => handlePageNavigation(page)}

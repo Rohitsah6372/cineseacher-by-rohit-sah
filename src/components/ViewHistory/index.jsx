@@ -23,13 +23,13 @@ const ViewHistory = () => {
 
   return (
     <div className="max-h-[400px] overflow-y-auto">
-      <div className="flex items-center justify-between p-4 ">
-        <Typography className="  font-bold">{t("viewHistoryTitle")}</Typography>
+      <div className="flex items-center justify-between p-4">
+        <Typography className="font-bold">{t("viewHistoryTitle")}</Typography>
         <Typography
           className="cursor-pointer text-xs font-bold text-gray-500 hover:text-red-600"
           onClick={removeAll}
         >
-          Clear all
+          {t("clearAll")}
         </Typography>
       </div>
       {moviesStore.length > 0 ? (
