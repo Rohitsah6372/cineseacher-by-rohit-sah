@@ -40,7 +40,7 @@ const MovieDetails = ({ movieDetails }) => {
                 icon={Favorite}
                 style="danger"
                 tooltipProps={{
-                  content: "Remove from favourite",
+                  content: t("removeFromFavourite"),
                   position: "right",
                 }}
                 onClick={() => removeMovie(movieDetails)}
@@ -50,7 +50,7 @@ const MovieDetails = ({ movieDetails }) => {
                 icon={Favorite}
                 style="tertiary"
                 tooltipProps={{
-                  content: "Add to favourite",
+                  content: t("addToFavourite"),
                   position: "right",
                 }}
                 onClick={() => addMovie(movieDetails)}
@@ -69,7 +69,7 @@ const MovieDetails = ({ movieDetails }) => {
         <div className="col-span-2 pl-8 pt-4 text-gray-700">
           <Typography>{plot}</Typography>
           <Typography>
-            <span className="font-bold text-black  ">{t("director")} : </span>
+            <span className="font-bold text-black">{t("director")} : </span>
             {director}
           </Typography>
           <Typography>
